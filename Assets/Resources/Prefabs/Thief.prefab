@@ -543,11 +543,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a558ff32e387074780a986eee559f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4248248202425953849}
   rb: {fileID: 4297926334196895537}
+  animator: {fileID: 4248248202425953849}
   player: {fileID: 0}
-  speed: 0
   height: 0
+  timeLimit: 0
+  countUp: 0
+  speed: 0
   distance: 0
   direction: {x: 0, y: 0}
 --- !u!1 &4298334805357787521

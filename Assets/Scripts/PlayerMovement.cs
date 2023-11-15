@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float horizontal;
-    private float speed = 8f;
-    private float jumpingPower = 16f;
-    private bool isFacingRight = true;
-
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float range;
     [SerializeField] private bool isGrounded;
+    [SerializeField] private float horizontal;
+    [SerializeField] public float speed = 5f;
+    [SerializeField] private float jumpingPower = 16f;
+    [SerializeField] private bool isFacingRight = true;
+    [SerializeField] private Vector2 position;
 
     void Start()
     {
@@ -21,15 +21,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        position = new Vector2(this.transform.position.x, this.transform.position.y);
+
         horizontal = Input.GetAxisRaw("Horizontal");
-        Debug.Log(horizontal);
+        //Debug.Log(horizontal);
 
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-        animator.SetFloat("speed", horizontal * speed);
+        animator.SetFloat("speed", Mathf.Abs(rb.velocity.x));
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            //animator.SetTrigger("isJump");
+            //animator.SetBool("isGrounded", false);
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
@@ -39,6 +43,15 @@ public class PlayerMovement : MonoBehaviour
 
         Flip();
         isGrounded = IsGrounded();
+
+        if (isGrounded == true)
+        {
+            animator.SetBool("isGrounded", true);
+        }
+        else
+        {
+            animator.SetBool("isGrounded", false);
+        }
     }
 
     private bool IsGrounded()
