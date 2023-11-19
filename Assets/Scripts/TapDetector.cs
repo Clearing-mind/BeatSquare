@@ -14,25 +14,28 @@ public class TapDetector : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            animator.SetTrigger("isAttack01");
-            SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    animator.SetTrigger("isAttack01");
+        //    SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            animator.SetTrigger("isAttack02");
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse1))
+        //{
+        //    animator.SetTrigger("isAttack02");
+        //    SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Mouse3))
-        {
-            animator.SetTrigger("isAttack03");
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse3))
+        //{
+        //    animator.SetTrigger("isAttack03");
+        //    SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
+        //}
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            animator.SetTrigger("isKnockback");
+            //animator.SetTrigger("isKnockback");
+            animator.SetBool("isWallSlide", true);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
