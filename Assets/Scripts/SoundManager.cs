@@ -5,16 +5,25 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] AudioSource bgmAudioSource;
-    [SerializeField] AudioSource seAudioSource;
+    public AudioSource bgmFixedAudioSource;
+    public AudioSource bgmLoopAudioSource;
+    public AudioSource seAudioSource;
 
-    [SerializeField] List<BGMSoundData> bgmSoundDatas;
+    [SerializeField] List<BGMFixedSoundData> bgmFixedSoundDatas;
+    [SerializeField] List<BGMLoopSoundData> bgmLoopSoundDatas;
     [SerializeField] List<SESoundData> seSoundDatas;
 
     public float masterVolume = 1;
     public float bgmMasterVolume = 1;
     public float seMasterVolume = 1;
 
+    [Space(20)]
+    public float bgmFixedLength;
+    public float bgmFixedTime;
+    public float bgmLoopLength;
+    public float bgmLoopTime;
+
+    [Space(20)]
     [SerializeField] private float[] samples;
 
     public static SoundManager Instance { get; private set; }
@@ -30,17 +39,40 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         samples = new float[1024];
     }
 
-    public void PlayBGM(BGMSoundData.BGM bgm)
+    public void PlayFixedBGM(BGMFixedSoundData.BGM bgm)
     {
-        BGMSoundData data = bgmSoundDatas.Find(data => data.bgm == bgm);
-        bgmAudioSource.clip = data.audioClip;
-        bgmAudioSource.volume = data.volume * bgmMasterVolume * masterVolume;
-        bgmAudioSource.Play();
+        BGMFixedSoundData data = bgmFixedSoundDatas.Find(data => data.bgm == bgm);
+        bgmFixedAudioSource.clip = data.audioClip;
+        bgmFixedAudioSource.volume = data.volume * bgmMasterVolume * masterVolume;
+        bgmFixedAudioSource.Play();    
     }
 
+    public void PlayLoopBGM(BGMLoopSoundData.BGM bgm)
+    {
+        BGMLoopSoundData data = bgmLoopSoundDatas.Find(data => data.bgm == bgm);
+        bgmLoopAudioSource.clip = data.audioClip;
+        bgmLoopAudioSource.volume = data.volume * bgmMasterVolume * masterVolume;
+        bgmLoopAudioSource.Play();
+    }
+
+    public void CheckBGMTime()
+    {
+        if(bgmFixedAudioSource.clip != null)
+        {
+            bgmFixedLength = bgmFixedAudioSource.clip.length;
+            bgmFixedTime = bgmFixedAudioSource.time;
+        }
+
+        if (bgmLoopAudioSource.clip != null)
+        {
+            bgmLoopLength = bgmLoopAudioSource.clip.length;
+            bgmLoopTime = bgmLoopAudioSource.time;
+        }
+    }
 
     public void PlaySE(SESoundData.SE se)
     {
@@ -51,23 +83,37 @@ public class SoundManager : MonoBehaviour
 
     void Update()
     {
-        bgmAudioSource.GetSpectrumData(samples, 0, FFTWindow.BlackmanHarris);
+        CheckBGMTime();
+
+        bgmFixedAudioSource.GetSpectrumData(samples, 0, FFTWindow.BlackmanHarris);
     }
 
 }
 
 [System.Serializable]
-public class BGMSoundData
+public class BGMFixedSoundData
 {
     public enum BGM
     {
-        Opening,
+        P1_Fixed,
     }
 
     public BGM bgm;
     public AudioClip audioClip;
-    [Range(0, 1)]
-    public float volume = 1;
+    [Range(0, 1)] public float volume = 1;
+}
+
+[System.Serializable]
+public class BGMLoopSoundData
+{
+    public enum BGM
+    {
+        P1_Loop,
+    }
+
+    public BGM bgm;
+    public AudioClip audioClip;
+    [Range(0, 1)] public float volume = 1;
 }
 
 [System.Serializable]
@@ -81,6 +127,5 @@ public class SESoundData
 
     public SE se;
     public AudioClip audioClip;
-    [Range(0, 1)]
-    public float volume = 1;
+    [Range(0, 1)] public float volume = 1;
 }
