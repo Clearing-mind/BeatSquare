@@ -1,4 +1,4 @@
-using System.Collections;
+锘縰sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
@@ -12,7 +12,7 @@ public class CameraControl : MonoBehaviour
         confiner2D = GetComponent<CinemachineConfiner2D>();
     }
 
-    //等场景多了再更改
+    //绛夊満鏅浜嗗啀鏇存敼
 
     private void Start()
     {

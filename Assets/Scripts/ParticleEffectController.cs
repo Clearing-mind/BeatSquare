@@ -1,26 +1,26 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ParticleEffectController : MonoBehaviour
 {
-    public ParticleSystem starParticles; // ½«Á£×ÓÏµÍ³ÍÏ×§µ½Õâ¸ö×Ö¶ÎÖĞ
-    public Transform player; // ½«Íæ¼Ò½ÇÉ«µÄTransformÍÏ×§µ½Õâ¸ö×Ö¶ÎÖĞ
-    public float activationDistance = 2f; // ´¥·¢Á£×ÓĞ§¹ûµÄ¾àÀëãĞÖµ
+    public ParticleSystem starParticles; // å°†ç²’å­ç³»ç»Ÿæ‹–æ‹½åˆ°è¿™ä¸ªå­—æ®µä¸­
+    public Transform player; // å°†ç©å®¶è§’è‰²çš„Transformæ‹–æ‹½åˆ°è¿™ä¸ªå­—æ®µä¸­
+    public float activationDistance = 2f; // è§¦å‘ç²’å­æ•ˆæœçš„è·ç¦»é˜ˆå€¼
 
 
 
     void Start()
     {
        
-        starParticles = GetComponent<ParticleSystem>(); // »ñÈ¡Á£×ÓÏµÍ³µÄÒıÓÃ
+        starParticles = GetComponent<ParticleSystem>(); // è·å–ç²’å­ç³»ç»Ÿçš„å¼•ç”¨
         
-        if (player == null)// Èç¹ûÃ»ÓĞÊÖ¶¯Ö¸¶¨Íæ¼Ò½ÇÉ«£¬ÔòÄ¬ÈÏÊ¹ÓÃ½Å±¾ËùÔÚ¶ÔÏó
+        if (player == null)// å¦‚æœæ²¡æœ‰æ‰‹åŠ¨æŒ‡å®šç©å®¶è§’è‰²ï¼Œåˆ™é»˜è®¤ä½¿ç”¨è„šæœ¬æ‰€åœ¨å¯¹è±¡
         {
             player = transform;
         }
         
-        if (starParticles != null)// ÔÚ¿ªÊ¼Ê±ÔİÍ£Á£×ÓÏµÍ³
+        if (starParticles != null)// åœ¨å¼€å§‹æ—¶æš‚åœç²’å­ç³»ç»Ÿ
         {
             starParticles.Pause();
         }
@@ -29,9 +29,9 @@ public class ParticleEffectController : MonoBehaviour
     void Update()
     {
        
-        TriggerParticleEffect(); // ÔÚÉãÏñ»úÒÆ¶¯Ê±´¥·¢Á£×ÓĞ§¹û
+        TriggerParticleEffect(); // åœ¨æ‘„åƒæœºç§»åŠ¨æ—¶è§¦å‘ç²’å­æ•ˆæœ
         
-        if (Vector2.Distance(transform.position, player.position) < activationDistance)// ÔÚÉãÏñ»ú½Ó½üÍæ¼ÒÊ±´¥·¢Á£×ÓĞ§¹û
+        if (Vector2.Distance(transform.position, player.position) < activationDistance)// åœ¨æ‘„åƒæœºæ¥è¿‘ç©å®¶æ—¶è§¦å‘ç²’å­æ•ˆæœ
         {
             TriggerParticleEffect();
         }
@@ -39,7 +39,7 @@ public class ParticleEffectController : MonoBehaviour
 
     void TriggerParticleEffect()
     {
-        // Èç¹ûÁ£×ÓÏµÍ³´æÔÚ²¢ÇÒÎ´ÔÚ²¥·Å£¬Ôò²¥·ÅÁ£×ÓĞ§¹û
+        // å¦‚æœç²’å­ç³»ç»Ÿå­˜åœ¨å¹¶ä¸”æœªåœ¨æ’­æ”¾ï¼Œåˆ™æ’­æ”¾ç²’å­æ•ˆæœ
         if (starParticles != null && !starParticles.isPlaying)
         {
             starParticles.Play();
