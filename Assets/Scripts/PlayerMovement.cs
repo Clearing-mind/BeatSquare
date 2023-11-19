@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Space(20)]
     [SerializeField] private bool isWallSliding;
-    [SerializeField] private float wallSlidingSpeed = 2.0f;
+    [SerializeField] private float wallSlidingSpeed = 2.0f; // must more than 2.0f
 
     [Space(20)]
     [SerializeField] private bool isWallJumping;
@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
     [Space(20)]
+    [SerializeField] private GameObject Event;
     [SerializeField] private bool isInAttackRange;
     [SerializeField] private Collider2D[] hitEnemies;
 
@@ -109,11 +110,15 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetTrigger("isAttack01");
         SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
-        hitEnemies = Physics2D.OverlapCircleAll(attackChecker.position, attackRange, enemyLayer);
 
-        foreach(Collider2D enemy in hitEnemies)
+        if (Event.GetComponent<Timing>().onBeat == true)
         {
+            hitEnemies = Physics2D.OverlapCircleAll(attackChecker.position, attackRange, enemyLayer);
 
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                enemy.GetComponent<EnemyController>().TakeDamage();
+            }
         }
     }
 

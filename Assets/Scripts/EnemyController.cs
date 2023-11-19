@@ -5,19 +5,12 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 
-    void Start()
+    public void TakeDamage()
     {
+        Debug.Log("Enemy Died !!!");
 
-    }
-
-    void Update()
-    {
-
-    }
-
-    private void TakeDamage()
-    {
-        Debug.Log("Enemy Died!!!");
+        this.GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
     }
 
 }
