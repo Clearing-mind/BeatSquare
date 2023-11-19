@@ -15,6 +15,8 @@ public class SoundManager : MonoBehaviour
     public float bgmMasterVolume = 1;
     public float seMasterVolume = 1;
 
+    [SerializeField] private float[] samples;
+
     public static SoundManager Instance { get; private set; }
 
     private void Awake()
@@ -28,6 +30,7 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        samples = new float[1024];
     }
 
     public void PlayBGM(BGMSoundData.BGM bgm)
@@ -44,6 +47,11 @@ public class SoundManager : MonoBehaviour
         SESoundData data = seSoundDatas.Find(data => data.se == se);
         seAudioSource.volume = data.volume * seMasterVolume * masterVolume;
         seAudioSource.PlayOneShot(data.audioClip);
+    }
+
+    void Update()
+    {
+        bgmAudioSource.GetSpectrumData(samples, 0, FFTWindow.BlackmanHarris);
     }
 
 }

@@ -17,6 +17,7 @@ public class TapDetector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             animator.SetTrigger("isAttack01");
+            SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
