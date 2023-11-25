@@ -38,6 +38,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject Event;
     [SerializeField] private bool isInAttackRange;
     [SerializeField] private Collider2D[] hitEnemies;
+    [SerializeField] private bool canMoveVertically = true;
+    public void DisableVerticalMovement()
+    {
+        canMoveVertically = false;
+    }
+
+    public void EnableVerticalMovement()
+    {
+        canMoveVertically = true;
+    }
 
     void Start()
     {
@@ -60,22 +70,39 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("speed", Mathf.Abs(rb.velocity.x));
 
         // Jump
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (canMoveVertically == true)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-            //animator.SetTrigger("isJump");
-            //animator.SetBool("isGrounded", false);
+            if (Input.GetButtonDown("Jump") && IsGrounded())
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
+                                                                       //animator.SetTrigger("isJump");
+                                                                       //animator.SetBool("isGrounded", false);
+            }
+
         }
+        if (canMoveVertically == false)
+        {
+            if(Input.GetButtonDown("Jump") && IsGrounded())
+        
+            {
+            rb.velocity = new Vector2(rb.velocity.x, 0);// 处理垂直移动逻辑
+
+            }
+        }
+        
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
+
         isGrounding = IsGrounded();
         WallSlide();
         WallJump();
         isInAttackRange = InAttackRange();
+
+
 
         if (!isWallJumping)
         {
