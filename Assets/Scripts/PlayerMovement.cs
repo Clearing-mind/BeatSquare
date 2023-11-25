@@ -1,4 +1,4 @@
-using UnityEngine;
+锘縰sing UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isGrounding;
     [SerializeField] private float horizontal;
     [SerializeField] public float speed = 5f;
-    [SerializeField] private float jumpingPower = 16.0f;
+    [SerializeField] private float jumpingPower = 100.0f;
     [SerializeField] private Vector2 position;
 
     [Space(20)]
@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isInAttackRange;
     [SerializeField] private Collider2D[] hitEnemies;
     [SerializeField] private bool canMoveVertically = true;
+
     public void DisableVerticalMovement()
     {
         canMoveVertically = false;
@@ -75,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
             speed = 5f;
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
-                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
+                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 澶勭悊鍨傜洿绉诲姩閫昏緫
                                                                        //animator.SetTrigger("isJump");
                                                                        //animator.SetBool("isGrounded", false);
             }
@@ -85,10 +86,8 @@ public class PlayerMovement : MonoBehaviour
         {
             speed = 0;
             if(Input.GetButtonDown("Jump") && IsGrounded())
-        
             {
-            rb.velocity = new Vector2(rb.velocity.x, 0);// 处理垂直移动逻辑
-
+                rb.velocity = new Vector2(rb.velocity.x, 0);// 澶勭悊鍨傜洿绉诲姩閫昏緫
             }
         }
         
