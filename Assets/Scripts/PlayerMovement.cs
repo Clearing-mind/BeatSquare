@@ -72,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
         // Jump
         if (canMoveVertically == true)
         {
+            speed = 5f;
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
@@ -82,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (canMoveVertically == false)
         {
+            speed = 0;
             if(Input.GetButtonDown("Jump") && IsGrounded())
         
             {
