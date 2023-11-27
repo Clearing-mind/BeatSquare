@@ -6,11 +6,8 @@ public class Timing : MonoBehaviour
 {
     [SerializeField] private GameObject soundManager;
     [SerializeField] private float timeCounter;
-    [SerializeField] private float bgmFixedLength;
-    [SerializeField] private float bgmFixedTime;
-    [SerializeField] private float bgmLoopLength;
-    [SerializeField] private float bgmLoopTime;
-    [SerializeField] private bool bgmLoopOn;
+    [SerializeField] private float bgmLength;
+    [SerializeField] private float bgmTime;
 
     [Space(20)]
     [SerializeField] private float bpm;
@@ -22,32 +19,35 @@ public class Timing : MonoBehaviour
 
     void Start()
     {
-        SoundManager.Instance.PlayLoopBGM(BGMLoopSoundData.BGM.Level1_1);
+        SoundManager.Instance.PlayBGM(0, 1.0f);
+        SoundManager.Instance.PlayBGM(1, 0.0f);
+        SoundManager.Instance.PlayBGM(2, 0.0f);
+        SoundManager.Instance.PlayBGM(3, 0.0f);
+        SoundManager.Instance.PlayBGM(4, 0.0f);
+        SoundManager.Instance.PlayBGM(5, 0.0f);
+        SoundManager.Instance.PlayBGM(6, 0.0f);
+        SoundManager.Instance.PlayBGM(7, 0.0f);
 
         secondPerBeat = 60.0f / bpm;
         //beatRange = 0.2f;
         beatDelay = secondPerBeat / 2.0f;
         beatTimer = beatDelay;
-        bgmLoopOn = false;
     }
 
     void Update()
     {
         timeCounter += Time.deltaTime;
+
+        for (int i = 1; i <= 7; i++)
+        {
+            if (timeCounter >= 2.0f * i)
+            {
+                SoundManager.Instance.AdjustBGMVolume(i, 1.0f);
+            }
+        }
+
         BeatCheck();
-        CheckBGMTime();
-
-        //if (bgmFixedTime == bgmFixedLength)
-        //{
-        //    bgmLoopOn = true;
-        //}
-
-        //if (bgmLoopOn == true)
-        //{
-        //    SoundManager.Instance.PlayLoopBGM(BGMLoopSoundData.BGM.P1_Loop);
-        //    bgmLoopOn = false;
-        //}
-        
+        CheckBGMTime();   
     }
 
     private void BeatCheck()
@@ -74,16 +74,10 @@ public class Timing : MonoBehaviour
 
     public void CheckBGMTime()
     {
-        //if (soundManager.GetComponent<SoundManager>().bgmFixedAudioSource.clip != null)
-        //{
-        //    bgmFixedLength = soundManager.GetComponent<SoundManager>().bgmFixedAudioSource.clip.length;
-        //    bgmFixedTime = soundManager.GetComponent<SoundManager>().bgmFixedAudioSource.time;
-        //}
-
-        if (soundManager.GetComponent<SoundManager>().bgmLoopAudioSource.clip != null)
+        if (soundManager.GetComponent<SoundManager>().bgmAudioSources[0].clip != null)
         {
-            bgmLoopLength = soundManager.GetComponent<SoundManager>().bgmLoopAudioSource.clip.length;
-            bgmLoopTime = soundManager.GetComponent<SoundManager>().bgmLoopAudioSource.time;
+            bgmLength = soundManager.GetComponent<SoundManager>().bgmAudioSources[0].clip.length;
+            bgmTime = soundManager.GetComponent<SoundManager>().bgmAudioSources[0].time;
         }
     }
 }
