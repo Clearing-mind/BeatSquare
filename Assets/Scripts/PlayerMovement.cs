@@ -38,13 +38,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject Event;
     [SerializeField] private bool isInAttackRange;
     [SerializeField] private Collider2D[] hitEnemies;
-    [SerializeField] private bool canMoveVertically = true;
 
+    //liye
+    [SerializeField] private bool canMoveVertically;
+    private float originalSpeed;
+
+    //liye
     public void DisableVerticalMovement()
     {
         canMoveVertically = false;
     }
-
+    //liye
     public void EnableVerticalMovement()
     {
         canMoveVertically = true;
@@ -54,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isFacingRight = true;
         animator = this.GetComponent<Animator>();
+        originalSpeed = speed;
     }
 
     void Update()
@@ -71,9 +76,10 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("speed", Mathf.Abs(rb.velocity.x));
 
         // Jump
+        //liye
         if (canMoveVertically == true)
         {
-            speed = 5f;
+         
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
@@ -82,13 +88,13 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+        //liye
         if (canMoveVertically == false)
         {
-            speed = 0;
-            if(Input.GetButtonDown("Jump") && IsGrounded())
-            {
-                rb.velocity = new Vector2(rb.velocity.x, 0);// 处理垂直移动逻辑
-            }
+           
+         rb.velocity = new Vector2(0, 0);// 处理垂直移动逻辑
+           
+           
         }
         
 
@@ -132,8 +138,26 @@ public class PlayerMovement : MonoBehaviour
         {
             Attack1(); 
         }
-    }
 
+    }
+    //liye，这里设置了加速物品的放大倍率，链接到了物体脚本上，方便今后直接调整物体脚本而不动用角色脚本
+    public void SetSpeedMultiplier(float multiplier, float delay)
+    {
+        // 在这里修改速度
+        if (horizontal > 0f) {
+            speed = originalSpeed * multiplier;
+            Invoke(nameof(ResetSpeed), delay);
+        }
+        
+    }
+    //liye
+    void ResetSpeed()
+    {
+        // 还原速度为初始值
+        speed = originalSpeed;
+    }
+    //liye
+    
     private void Attack1()
     {
         animator.SetTrigger("isAttack01");
@@ -236,4 +260,5 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = localScale;
         }
     }
+
 }

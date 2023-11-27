@@ -9,6 +9,7 @@ TagManager:
   - Green
   - Blue
   - Fire
+  - haste
   layers:
   - Default
   - TransparentFX
