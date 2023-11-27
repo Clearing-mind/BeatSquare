@@ -130,6 +130,8 @@ public class SESoundData
     public enum SE
     {
         Attack,
+        Jump_Full,
+        Jump_Half,
         Damage,
     }
 

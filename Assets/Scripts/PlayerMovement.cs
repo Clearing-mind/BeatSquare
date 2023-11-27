@@ -82,18 +82,20 @@ public class PlayerMovement : MonoBehaviour
         // Jump
         if (canMoveVertically == true)
         {
-            speed = originalSpeed;
+            //speed = originalSpeed;
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
                 if (Event.GetComponent<Timing>().onBeat == true)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
+                    SoundManager.Instance.PlaySE(SESoundData.SE.Jump_Full);
                     //animator.SetTrigger("isJump");
                     //animator.SetBool("isGrounded", false);
                 }
                 else
                 {
                     rb.velocity = new Vector2(rb.velocity.x, jumpingPower / 2.0f);
+                    SoundManager.Instance.PlaySE(SESoundData.SE.Jump_Half);
                 }
             }
         }
