@@ -4,6 +4,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
+    [SerializeField] private Vector2 initialPosition;
+
+    [Space(20)]
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float goundedRange = 0.2f;
@@ -18,9 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [Space(20)]
     [SerializeField] private bool isGrounding;
     [SerializeField] private float horizontal;
-    [SerializeField] public float speed = 5f;
-    [SerializeField] private float jumpingPower = 100.0f;
-    [SerializeField] private Vector2 position;
+    [SerializeField] public float speed;
+    [SerializeField] private float jumpingPower;
 
     [Space(20)]
     [SerializeField] private bool isWallSliding;
@@ -39,16 +41,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isInAttackRange;
     [SerializeField] private Collider2D[] hitEnemies;
 
-    //liye
+    // liye
     [SerializeField] private bool canMoveVertically;
     private float originalSpeed;
 
-    //liye
+    // liye
     public void DisableVerticalMovement()
     {
         canMoveVertically = false;
     }
-    //liye
+
+    // liye
     public void EnableVerticalMovement()
     {
         canMoveVertically = true;
@@ -63,7 +66,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        position = new Vector2(this.transform.position.x, this.transform.position.y);
 
         // Left and right movement
         if (isWallJumping == false)
@@ -75,41 +77,47 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         animator.SetFloat("speed", Mathf.Abs(rb.velocity.x));
 
+        // liye
         // Jump
-        //liye
         if (canMoveVertically == true)
         {
-         
+            speed = originalSpeed;
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
-                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
-                                                                       //animator.SetTrigger("isJump");
-                                                                       //animator.SetBool("isGrounded", false);
+                if (Event.GetComponent<Timing>().onBeat == true)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
+                    //animator.SetTrigger("isJump");
+                    //animator.SetBool("isGrounded", false);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpingPower / 2.0f);
+                }
             }
-
         }
-        //liye
+
+        // liye
         if (canMoveVertically == false)
         {
-           
-         rb.velocity = new Vector2(0, 0);// 处理垂直移动逻辑
-           
-           
+            speed = 0.0f;
+            if (Input.GetButtonDown("Jump") && IsGrounded())
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);// 处理垂直移动逻辑
+            }
         }
-        
 
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
+        //if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+        //{
+        //    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        //}
 
 
         isGrounding = IsGrounded();
         WallSlide();
         WallJump();
         isInAttackRange = InAttackRange();
-
-
+        RespawnCheck();
 
         if (!isWallJumping)
         {
@@ -136,10 +144,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Attack1(); 
+            Attack1();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            Attack2();
         }
 
     }
+
     //liye，这里设置了加速物品的放大倍率，链接到了物体脚本上，方便今后直接调整物体脚本而不动用角色脚本
     public void SetSpeedMultiplier(float multiplier, float delay)
     {
@@ -147,9 +161,9 @@ public class PlayerMovement : MonoBehaviour
         if (horizontal > 0f) {
             speed = originalSpeed * multiplier;
             Invoke(nameof(ResetSpeed), delay);
-        }
-        
+        }     
     }
+
     //liye
     void ResetSpeed()
     {
@@ -157,14 +171,30 @@ public class PlayerMovement : MonoBehaviour
         speed = originalSpeed;
     }
     //liye
-    
+
     private void Attack1()
     {
-        animator.SetTrigger("isAttack01");
-        SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
-
         if (Event.GetComponent<Timing>().onBeat == true)
         {
+            animator.SetTrigger("isAttack01");
+            SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
+
+            hitEnemies = Physics2D.OverlapCircleAll(attackChecker.position, attackRange, enemyLayer);
+
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                enemy.GetComponent<EnemyController>().TakeDamage();
+            }
+        }
+    }
+
+    private void Attack2()
+    {
+        if (Event.GetComponent<Timing>().onBeat == true)
+        {
+            animator.SetTrigger("isAttack02");
+            SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
+
             hitEnemies = Physics2D.OverlapCircleAll(attackChecker.position, attackRange, enemyLayer);
 
             foreach (Collider2D enemy in hitEnemies)
@@ -258,6 +288,14 @@ public class PlayerMovement : MonoBehaviour
             Vector3 localScale = transform.localScale;
             localScale.x *= -1.0f;
             transform.localScale = localScale;
+        }
+    }
+
+    private void RespawnCheck()
+    {
+        if (this.transform.position.y <= -20.0f)
+        {
+            this.transform.position = initialPosition;
         }
     }
 
