@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         isFacingRight = true;
         animator = this.GetComponent<Animator>();
         originalSpeed = speed;
+        initialPosition = this.transform.position;
     }
 
     void Update()
