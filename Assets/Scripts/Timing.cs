@@ -22,10 +22,10 @@ public class Timing : MonoBehaviour
 
     void Start()
     {
-        SoundManager.Instance.PlayFixedBGM(BGMFixedSoundData.BGM.P1_Fixed);
+        SoundManager.Instance.PlayLoopBGM(BGMLoopSoundData.BGM.Level1_1);
 
         secondPerBeat = 60.0f / bpm;
-        beatRange = 0.1f;
+        //beatRange = 0.2f;
         beatDelay = secondPerBeat / 2.0f;
         beatTimer = beatDelay;
         bgmLoopOn = false;
@@ -37,27 +37,27 @@ public class Timing : MonoBehaviour
         BeatCheck();
         CheckBGMTime();
 
-        if (bgmFixedTime == bgmFixedLength)
-        {
-            bgmLoopOn = true;
-        }
+        //if (bgmFixedTime == bgmFixedLength)
+        //{
+        //    bgmLoopOn = true;
+        //}
 
-        if (bgmLoopOn == true)
-        {
-            SoundManager.Instance.PlayLoopBGM(BGMLoopSoundData.BGM.P1_Loop);
-            bgmLoopOn = false;
-        }
+        //if (bgmLoopOn == true)
+        //{
+        //    SoundManager.Instance.PlayLoopBGM(BGMLoopSoundData.BGM.P1_Loop);
+        //    bgmLoopOn = false;
+        //}
         
     }
 
     private void BeatCheck()
     {
         beatTimer += Time.deltaTime;
-        if (beatTimer < beatRange)
-        {
-            onBeat = true;
-        }
-        else if (beatTimer > secondPerBeat - beatRange)
+        //if (beatTimer < beatRange)
+        //{
+        //    onBeat = true;
+        //}
+        if (beatTimer > secondPerBeat - beatRange)
         {
             onBeat = true;
         }
@@ -74,11 +74,11 @@ public class Timing : MonoBehaviour
 
     public void CheckBGMTime()
     {
-        if (soundManager.GetComponent<SoundManager>().bgmFixedAudioSource.clip != null)
-        {
-            bgmFixedLength = soundManager.GetComponent<SoundManager>().bgmFixedAudioSource.clip.length;
-            bgmFixedTime = soundManager.GetComponent<SoundManager>().bgmFixedAudioSource.time;
-        }
+        //if (soundManager.GetComponent<SoundManager>().bgmFixedAudioSource.clip != null)
+        //{
+        //    bgmFixedLength = soundManager.GetComponent<SoundManager>().bgmFixedAudioSource.clip.length;
+        //    bgmFixedTime = soundManager.GetComponent<SoundManager>().bgmFixedAudioSource.time;
+        //}
 
         if (soundManager.GetComponent<SoundManager>().bgmLoopAudioSource.clip != null)
         {
