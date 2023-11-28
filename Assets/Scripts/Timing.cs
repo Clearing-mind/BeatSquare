@@ -40,7 +40,7 @@ public class Timing : MonoBehaviour
 
         for (int i = 1; i <= 7; i++)
         {
-            if (timeCounter >= 2.0f * i)
+            if (timeCounter >= 16.0f * i)
             {
                 SoundManager.Instance.AdjustBGMVolume(i, 1.0f);
             }
