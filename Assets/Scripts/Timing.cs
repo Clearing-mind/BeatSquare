@@ -10,17 +10,22 @@ public class Timing : MonoBehaviour
     [SerializeField] private float timeCounter;
     [SerializeField] private float bgmLength;
     [SerializeField] private float bgmTime;
-    //[SerializeField] private int lastLoopTime;
-    //[SerializeField] private int loopTime;
-    //[SerializeField] private bool loopAgain;
 
     [Space(20)]
     [SerializeField] private float bpm;
     [SerializeField] private float secondPerBeat;
     [SerializeField] private float beatRange;
     [SerializeField] private float beatTimer;
-    [SerializeField] private float beatDelay;
+    //[SerializeField] private float beatDelay;
     [SerializeField] public bool onBeat;
+
+    [Space(20)]
+    public GameObject startPoint;
+    public GameObject endPoint;
+    public GameObject tempo_1;
+    public float distance;
+    public Vector2 startPointPosition;
+    public Vector2 endPointPosition;
 
     void Start()
     {
@@ -35,8 +40,12 @@ public class Timing : MonoBehaviour
 
         secondPerBeat = 60.0f / bpm;
         //beatRange = 0.2f;
-        beatDelay = secondPerBeat / 2.0f;
-        beatTimer = beatDelay;
+        //beatDelay = (secondPerBeat / 2.0f) + (bgmTime - timeCounter);
+        //beatTimer = beatDelay;
+
+        startPointPosition = startPoint.transform.localPosition;
+        endPointPosition = endPoint.transform.localPosition;
+        distance = Vector2.Distance(startPoint.transform.position, endPoint.transform.position);
     }
 
     void Update()
@@ -67,18 +76,21 @@ public class Timing : MonoBehaviour
         //    loopAgain = false;
         //}
 
+        CheckBGMTime();
         BeatCheck();
-        CheckBGMTime();   
+        TempoMover(tempo_1);
     }
 
     private void BeatCheck()
     {
         beatTimer += Time.deltaTime;
-        //if (beatTimer < beatRange)
-        //{
-        //    onBeat = true;
-        //}
-        if (beatTimer > secondPerBeat - beatRange)
+        if (bgmTime <= 1.0f / bpm)
+        {
+            beatTimer = 0.0f;
+            //print("ÖØÖÃ");
+        }
+
+        if ((beatTimer > secondPerBeat - beatRange) || (beatTimer < beatRange/2.0f))
         {
             onBeat = true;
         }
@@ -99,6 +111,18 @@ public class Timing : MonoBehaviour
         {
             bgmLength = soundManager.GetComponent<SoundManager>().bgmAudioSources[0].clip.length;
             bgmTime = soundManager.GetComponent<SoundManager>().bgmAudioSources[0].time;
+        }
+    }
+
+    void TempoMover(GameObject tempo)
+    {
+        //tempo.transform.Translate(Vector3.right * speed * Time.deltaTime);
+
+        tempo.transform.position = new Vector2(startPoint.transform.position.x + beatTimer * distance, startPoint.transform.position.y);
+
+        if (tempo.transform.localPosition.x > endPointPosition.x)
+        {
+            tempo.transform.localPosition = startPointPosition;
         }
     }
 }

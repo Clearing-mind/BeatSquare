@@ -10,7 +10,9 @@ public class TempoMovement : MonoBehaviour
 
     public GameObject tempo_1;
 
-    public float speed = 5.0f;
+    //public float speed = 5.0f;
+    public float distance;
+
     public Vector2 startPointPosition;
     public Vector2 endPointPosition;
 
@@ -18,6 +20,7 @@ public class TempoMovement : MonoBehaviour
     {
         startPointPosition = startPoint.transform.localPosition;
         endPointPosition = endPoint.transform.localPosition;
+        distance = Vector2.Distance(startPoint.transform.position, endPoint.transform.position);
     }
 
 
@@ -28,7 +31,9 @@ public class TempoMovement : MonoBehaviour
 
     void TempoMover(GameObject tempo)
     {
-        tempo.transform.Translate(Vector3.right * speed * Time.deltaTime);
+        //tempo.transform.Translate(Vector3.right * speed * Time.deltaTime);
+
+        tempo.transform.position = new Vector2(startPoint.transform.position.x, this.transform.position.y);
 
         if (tempo.transform.localPosition.x > endPointPosition.x)
         {
