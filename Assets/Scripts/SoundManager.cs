@@ -66,6 +66,41 @@ public class SoundManager : MonoBehaviour
         source.volume = volume * bgmMasterVolume * masterVolume;
     }
 
+    public void AdjustFadeInBGMVolume(int bgmIndex, float volume)
+    {
+        if (volume > 0)
+        {
+            StartCoroutine(FadeInBGM(bgmIndex, 1f)); // 1秒内音量从0到1
+        }
+        else
+        {
+            // 原有的逻辑，设置静音或其他处理
+        }
+    }
+
+    IEnumerator FadeInBGM(int bgmIndex, float duration)
+    {
+        if (bgmIndex < 0 || bgmIndex >= bgmAudioSources.Length)
+        {
+            Debug.LogError("BGM index out of range");
+            yield break;
+        }
+
+        AudioSource source = bgmAudioSources[bgmIndex];
+        float currentTime = 0;
+        float startVolume = 0;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float newVolume = Mathf.Lerp(startVolume, 1f, currentTime / duration);
+            source.volume = newVolume * bgmMasterVolume * masterVolume;
+            yield return null;
+        }
+
+        source.volume = 1f * bgmMasterVolume * masterVolume;
+    }
+
     void Update()
     {
         CheckBGMTime();

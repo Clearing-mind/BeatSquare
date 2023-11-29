@@ -9,7 +9,6 @@ public class TempoMovement : MonoBehaviour
     public GameObject endPoint;
 
     public GameObject tempo_1;
-    public GameObject tempo_2;
 
     public float speed = 5.0f;
     public Vector2 startPointPosition;
@@ -25,7 +24,6 @@ public class TempoMovement : MonoBehaviour
     void Update()
     {
         TempoMover(tempo_1);
-        TempoMover(tempo_2);
     }
 
     void TempoMover(GameObject tempo)

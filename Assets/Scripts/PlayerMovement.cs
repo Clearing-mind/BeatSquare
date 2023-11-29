@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Space(20)]
     [SerializeField] private GameObject Event;
+    [SerializeField] private GameObject VFX;
     [SerializeField] private bool isInAttackRange;
     [SerializeField] private Collider2D[] hitEnemies;
 
@@ -92,11 +93,11 @@ public class PlayerMovement : MonoBehaviour
                     //animator.SetTrigger("isJump");
                     //animator.SetBool("isGrounded", false);
                 }
-                else
-                {
-                    rb.velocity = new Vector2(rb.velocity.x, jumpingPower / 2.0f);
-                    SoundManager.Instance.PlaySE(SESoundData.SE.Jump_Half);
-                }
+                //else
+                //{
+                //    rb.velocity = new Vector2(rb.velocity.x, jumpingPower / 2.0f);
+                //    SoundManager.Instance.PlaySE(SESoundData.SE.Jump_Half);
+                //}
             }
         }
 
@@ -152,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            Attack2();
+            Attack3();
         }
 
     }
@@ -181,12 +182,13 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetTrigger("isAttack01");
             SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
+            VFX.gameObject.SetActive(true);
 
             hitEnemies = Physics2D.OverlapCircleAll(attackChecker.position, attackRange, enemyLayer);
 
             foreach (Collider2D enemy in hitEnemies)
             {
-                enemy.GetComponent<EnemyController>().TakeDamage();
+                enemy.GetComponent<EnemyController>().TakenDamage();
             }
         }
     }
@@ -202,7 +204,23 @@ public class PlayerMovement : MonoBehaviour
 
             foreach (Collider2D enemy in hitEnemies)
             {
-                enemy.GetComponent<EnemyController>().TakeDamage();
+                enemy.GetComponent<EnemyController>().TakenDamage();
+            }
+        }
+    }
+
+    private void Attack3()
+    {
+        if (Event.GetComponent<Timing>().onBeat == true)
+        {
+            animator.SetTrigger("isAttack03");
+            SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
+
+            hitEnemies = Physics2D.OverlapCircleAll(attackChecker.position, attackRange, enemyLayer);
+
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                enemy.GetComponent<EnemyController>().TakenDamage();
             }
         }
     }

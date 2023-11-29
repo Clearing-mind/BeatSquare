@@ -13,12 +13,14 @@ public class EnemyChaser : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float distance;
     [SerializeField] private Vector2 direction;
+    [SerializeField] private Vector2 initialScale;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         animator = this.GetComponent<Animator>();
         height = player.transform.position.y;
+        initialScale = this.transform.localScale;
     }
 
     void Update()
@@ -39,18 +41,23 @@ public class EnemyChaser : MonoBehaviour
             speed = distance / (timeLimit - countUp);
         }
 
-        animator.SetFloat("speed", speed);
+        //animator.SetFloat("speed", speed);
 
         if (direction.x < 0.0f)
         {
-            this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            this.transform.localScale = new Vector3(initialScale.x, initialScale.y, 1.0f);
         }
         else
         {
-            this.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            this.transform.localScale = new Vector3(-initialScale.x, initialScale.y, 1.0f);
         }
 
-        this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
         this.transform.position = new Vector2(this.transform.position.x, height);
+
+        if(this.GetComponent<EnemyController>().takingDamage == false)
+        {
+            this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+
     }
 }
