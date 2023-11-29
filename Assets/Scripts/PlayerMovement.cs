@@ -83,9 +83,10 @@ public class PlayerMovement : MonoBehaviour
         // Jump
         if (canMoveVertically == true)
         {
-            //speed = originalSpeed;
+            speed = originalSpeed * currentSpeedMultiplier;
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
+                rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
                 if (Event.GetComponent<Timing>().onBeat == true)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
@@ -162,22 +163,34 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
-    //liye，这里设置了加速物品的放大倍率，链接到了物体脚本上，方便今后直接调整物体脚本而不动用角色脚本
+    // liye
+    // 在类的顶部定义一个变量来存储当前的速度倍率
+    private float currentSpeedMultiplier = 1.0f;
+    private bool hasAppliedMultiplier = false;
+    //这里设置了加速物品的放大倍率，链接到了物体脚本上，方便今后直接调整物体脚本而不动用角色脚本
     public void SetSpeedMultiplier(float multiplier, float delay)
     {
-        // 在这里修改速度
-        if (horizontal > 0f) {
-            speed = originalSpeed * multiplier;
-            Invoke(nameof(ResetSpeed), delay);
-        }     
+        // 只在初次设置时进行乘法操作
+        if (!hasAppliedMultiplier)
+        {
+            // 在这里修改速度
+            if (horizontal > 0f)
+            {
+                speed = speed * multiplier;
+                // 记录当前速度倍率
+                currentSpeedMultiplier = multiplier;
+                Invoke(nameof(ResetSpeed), delay);
+                hasAppliedMultiplier = true; // 将标志设置为 true，表示已经应用了速度倍率
+            }
+        }
     }
 
     //liye
     void ResetSpeed()
     {
-        // 还原速度为初始值
-        speed = originalSpeed;
+        // 还原速度为初始值或者之前的倍率
+        speed = originalSpeed * currentSpeedMultiplier;
+        hasAppliedMultiplier = false; // 将标志重置为 false，以便在下一次调用 SetSpeedMultiplier 时可以再次应用倍率
     }
     //liye
 

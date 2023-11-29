@@ -12,6 +12,9 @@ TagManager:
   - haste
   - FxTemporaire
   - Spike
+  - Pad
+  - Elevator
+  - EnemyChaser
   layers:
   - Default
   - TransparentFX

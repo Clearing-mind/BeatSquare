@@ -14,13 +14,22 @@ public class EnemyChaser : MonoBehaviour
     [SerializeField] private float distance;
     [SerializeField] private Vector2 direction;
     [SerializeField] private Vector2 initialScale;
+    private bool isActive = false;
+    public void Activate()
+    {
+        isActive = true;
+        rb = GetComponent<Rigidbody2D>(); // 添加这行以获取 Rigidbody2D 组件
+        rb.simulated = true; // 启用 Rigidbody2D
+        this.enabled = true;
+    }
+
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         animator = this.GetComponent<Animator>();
-        height = player.transform.position.y;
-        initialScale = this.transform.localScale;
+    height = player.transform.position.y;
+    initialScale = this.transform.localScale;
     }
 
     void Update()
@@ -57,6 +66,10 @@ public class EnemyChaser : MonoBehaviour
         if(this.GetComponent<EnemyController>().takingDamage == false)
         {
             this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+        {
+            if (!isActive) return; // 如果未激活，直接返回
+
         }
 
     }
