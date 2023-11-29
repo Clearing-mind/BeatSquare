@@ -20,7 +20,7 @@ public class ElevatorController2 : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player"); // 使用标签查找角色对象
 
-        if (player != null && player.transform.position.x >= 520)
+        if (player != null && player.transform.position.x >= 1200)
         {
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
 
