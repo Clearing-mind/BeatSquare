@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Space(20)]
     [SerializeField] private bool isWallSliding;
-    [SerializeField] private float wallSlidingSpeed = 2.0f; // must more than 2.0f
+    [SerializeField] private float wallSlidingSpeed = 3.0f; // must more than 2.0f
 
     [Space(20)]
     [SerializeField] private bool isWallJumping;
@@ -90,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
                     SoundManager.Instance.PlaySE(SESoundData.SE.Jump_Full);
+                    VFX.gameObject.SetActive(true);
                     //animator.SetTrigger("isJump");
                     //animator.SetBool("isGrounded", false);
                 }
@@ -121,7 +122,11 @@ public class PlayerMovement : MonoBehaviour
         WallSlide();
         WallJump();
         isInAttackRange = InAttackRange();
-        RespawnCheck();
+
+        if (this.transform.position.y <= -20.0f)
+        {
+            Respawn();
+        }
 
         if (!isWallJumping)
         {
@@ -199,6 +204,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetTrigger("isAttack02");
             SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
+            VFX.gameObject.SetActive(true);
 
             hitEnemies = Physics2D.OverlapCircleAll(attackChecker.position, attackRange, enemyLayer);
 
@@ -215,6 +221,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetTrigger("isAttack03");
             SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
+            VFX.gameObject.SetActive(true);
 
             hitEnemies = Physics2D.OverlapCircleAll(attackChecker.position, attackRange, enemyLayer);
 
@@ -312,12 +319,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void RespawnCheck()
+    public void Respawn()
     {
-        if (this.transform.position.y <= -20.0f)
-        {
-            this.transform.position = initialPosition;
-        }
+        this.transform.position = initialPosition;
     }
 
 }

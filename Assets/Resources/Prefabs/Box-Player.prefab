@@ -190,7 +190,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -291,6 +291,7 @@ MonoBehaviour:
   wallJumpingDuration: 0.4
   wallJumpingPower: {x: 8, y: 16}
   Event: {fileID: 0}
+  VFX: {fileID: 0}
   isInAttackRange: 0
   hitEnemies: []
   canMoveVertically: 1

@@ -67,7 +67,7 @@ MonoBehaviour:
   bgmTime: 0
   bpm: 60
   secondPerBeat: 0
-  beatRange: 0.35
+  beatRange: 0.5
   beatTimer: 0
   beatDelay: 0.5
   onBeat: 0
@@ -83,3 +83,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58102f1fbc99c924ba569bd0b416dc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPoint: {fileID: 0}
+  endPoint: {fileID: 0}
+  tempo_1: {fileID: 0}
+  speed: 5
+  startPointPosition: {x: 0, y: 0}
+  endPointPosition: {x: 0, y: 0}

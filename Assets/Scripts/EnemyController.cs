@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour
 {
 
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject player;
     [SerializeField] public bool takingDamage;
 
     void Start()
@@ -14,6 +15,13 @@ public class EnemyController : MonoBehaviour
         takingDamage = false;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            player.GetComponent<PlayerMovement>().Respawn();
+        }
+    }
     public void TakenDamage()
     {
         //Debug.Log("Enemy Died !!!");
