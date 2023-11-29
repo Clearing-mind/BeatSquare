@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 264889897643097444}
   - component: {fileID: 6458391291019742302}
   - component: {fileID: 3057043810951935250}
-  - component: {fileID: 5448798752702811741}
   m_Layer: 0
   m_Name: Event
   m_TagString: Untagged
@@ -67,25 +66,12 @@ MonoBehaviour:
   bgmTime: 0
   bpm: 60
   secondPerBeat: 0
-  beatRange: 0.5
+  beatRange: 0.2
   beatTimer: 0
-  beatDelay: 0.5
   onBeat: 0
---- !u!114 &5448798752702811741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1383416146734043737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58102f1fbc99c924ba569bd0b416dc70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   startPoint: {fileID: 0}
   endPoint: {fileID: 0}
   tempo_1: {fileID: 0}
-  speed: 5
+  distance: 0
   startPointPosition: {x: 0, y: 0}
   endPointPosition: {x: 0, y: 0}

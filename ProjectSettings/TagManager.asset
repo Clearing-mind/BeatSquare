@@ -10,6 +10,8 @@ TagManager:
   - Blue
   - Fire
   - haste
+  - FxTemporaire
+  - Spike
   layers:
   - Default
   - TransparentFX
