@@ -18,7 +18,7 @@ public class Timing : MonoBehaviour
     [SerializeField] private float secondPerBeat;
     [SerializeField] private float beatRange;
     [SerializeField] private float beatTimer;
-    //[SerializeField] private float beatDelay;
+    [SerializeField] private float beatDelay;
     [SerializeField] public bool onBeat;
 
     [Space(20)]
@@ -34,8 +34,8 @@ public class Timing : MonoBehaviour
 
         secondPerBeat = 60.0f / bpm;
         //beatRange = 0.2f;
-        //beatDelay = (secondPerBeat / 2.0f) + (bgmTime - timeCounter);
-        //beatTimer = beatDelay;
+        //beatDelay = secondPerBeat / 2.0f;
+        beatTimer = beatDelay;
 
         startPointPosition = startPoint.transform.localPosition;
         endPointPosition = endPoint.transform.localPosition;
@@ -79,11 +79,12 @@ public class Timing : MonoBehaviour
     private void BeatCheck()
     {
         beatTimer += Time.deltaTime;
-        if (bgmTime <= 1.0f / bpm)
-        {
-            beatTimer = 0.0f;
-            //print("ÖØÖÃ");
-        }
+
+        //if (bgmTime <= 1.0f / bpm)
+        //{
+        //    beatTimer = 0.0f;
+        //    //print("ÖØÖÃ");
+        //}
 
         if ((beatTimer > secondPerBeat - beatRange) || (beatTimer < beatRange/2.0f))
         {
