@@ -276,7 +276,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackRange: 1
+  attackRange: 2
   isFacingRight: 1
   isGrounding: 0
   horizontal: 0
