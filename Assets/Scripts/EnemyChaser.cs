@@ -17,7 +17,7 @@ public class EnemyChaser : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindWithTag("Player");
         animator = this.GetComponent<Animator>();
         height = player.transform.position.y;
         initialScale = this.transform.localScale;

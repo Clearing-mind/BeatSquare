@@ -5,6 +5,8 @@ using UnityEngine;
 public class Timing : MonoBehaviour
 {
     [SerializeField] private GameObject soundManager;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject[] bgmPositions = new GameObject[6];
 
     [Space(20)]
     [SerializeField] private float timeCounter;
@@ -29,14 +31,6 @@ public class Timing : MonoBehaviour
 
     void Start()
     {
-        SoundManager.Instance.PlayBGM(0, 1.0f);
-        SoundManager.Instance.PlayBGM(1, 0.0f);
-        SoundManager.Instance.PlayBGM(2, 0.0f);
-        SoundManager.Instance.PlayBGM(3, 0.0f);
-        SoundManager.Instance.PlayBGM(4, 0.0f);
-        SoundManager.Instance.PlayBGM(5, 0.0f);
-        SoundManager.Instance.PlayBGM(6, 0.0f);
-        SoundManager.Instance.PlayBGM(7, 0.0f);
 
         secondPerBeat = 60.0f / bpm;
         //beatRange = 0.2f;
@@ -46,35 +40,36 @@ public class Timing : MonoBehaviour
         startPointPosition = startPoint.transform.localPosition;
         endPointPosition = endPoint.transform.localPosition;
         distance = Vector2.Distance(startPoint.transform.position, endPoint.transform.position);
+
+        SoundManager.Instance.PlayBGM(0, 1.0f);
+        SoundManager.Instance.PlayBGM(1, 0.0f);
+        SoundManager.Instance.PlayBGM(2, 0.0f);
+        SoundManager.Instance.PlayBGM(3, 0.0f);
+        SoundManager.Instance.PlayBGM(4, 0.0f);
+        SoundManager.Instance.PlayBGM(5, 0.0f);
+        SoundManager.Instance.PlayBGM(6, 0.0f);
+        //SoundManager.Instance.PlayBGM(7, 0.0f);
     }
 
     void Update()
     {
         timeCounter += Time.deltaTime;
-        //loopTime = (int)(timeCounter / bgmLength);
 
-        for (int i = 1; i <= 7; i++)
+        //for (int i = 1; i <= 6; i++)
+        //{
+        //    if (timeCounter >= 2.0f * i)
+        //    {
+        //        SoundManager.Instance.AdjustBGMVolume(i, 1.0f);
+        //    }
+        //}
+
+        for (int i = 0; i < bgmPositions.Length; i++)
         {
-            if (timeCounter >= 2.0f * i)
+            if (player.transform.position.x >= bgmPositions[i].transform.position.x)
             {
-                SoundManager.Instance.AdjustBGMVolume(i, 1.0f);
+                SoundManager.Instance.AdjustBGMVolume(i + 1, 1.0f);
             }
         }
-
-        //if (lastLoopTime != loopTime)
-        //{
-        //    loopAgain = true;
-        //    lastLoopTime = loopTime;
-        //}
-
-        //if (loopAgain == true)
-        //{
-        //    for (int i = 1; i <= 7; i++)
-        //    {
-        //        SoundManager.Instance.AdjustFadeInBGMVolume(i, 1.0f);
-        //    }
-        //    loopAgain = false;
-        //}
 
         CheckBGMTime();
         BeatCheck();

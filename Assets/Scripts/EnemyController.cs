@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
         takingDamage = false;
+        player = GameObject.FindWithTag("Player");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -20,8 +21,10 @@ public class EnemyController : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             player.GetComponent<PlayerMovement>().Respawn();
+            this.gameObject.SetActive(false);
         }
     }
+
     public void TakenDamage()
     {
         //Debug.Log("Enemy Died !!!");
