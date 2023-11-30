@@ -31,7 +31,7 @@ public class StartScene : MonoBehaviour
 
     void EndGame()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
 
