@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform attackChecker;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float attackRange = 0.1f;
-    [SerializeField] private bool isFacingRight = true;
+    [SerializeField] public bool isFacingRight = true;
 
     [Space(20)]
     [SerializeField] private bool isGrounding;

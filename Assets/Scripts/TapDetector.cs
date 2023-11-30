@@ -8,40 +8,40 @@ public class TapDetector : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
 
+    [SerializeField] private Vector3 initialScale;
+    [SerializeField] private float scaleSmaller;
+    [SerializeField] private float scaleBigger;
+
     void Start()
     {
         animator = player.GetComponent<Animator>();
+        initialScale = player.transform.localScale;
     }
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    animator.SetTrigger("isAttack01");
-        //    SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Mouse1))
-        //{
-        //    animator.SetTrigger("isAttack02");
-        //    SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Mouse3))
-        //{
-        //    animator.SetTrigger("isAttack03");
-        //    SoundManager.Instance.PlaySE(SESoundData.SE.Attack);
-        //}
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            //animator.SetTrigger("isKnockback");
-            animator.SetBool("isWallSlide", true);
+            if(player.GetComponent<PlayerMovement>().isFacingRight == true)
+            {
+                player.transform.localScale = new Vector2(initialScale.x * scaleSmaller, initialScale.y * scaleSmaller);
+            }
+            else
+            {
+                player.transform.localScale = new Vector2(-initialScale.x * scaleSmaller, initialScale.y * scaleSmaller);
+            }
+            
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Instantiate(enemy, new Vector2(player.transform.position.x + 5.0f, player.transform.position.y), Quaternion.identity);
+            if (player.GetComponent<PlayerMovement>().isFacingRight == true)
+            {
+                player.transform.localScale = new Vector2(initialScale.x * scaleBigger, initialScale.y * scaleBigger);
+            }
+            else
+            {
+                player.transform.localScale = new Vector2(-initialScale.x * scaleBigger, initialScale.y * scaleBigger);
+            }
         }
-
     }
 }
