@@ -25,7 +25,7 @@ public class StartScene : MonoBehaviour
     void Update()
     {
         screenSize = new Vector2(Screen.width, Screen.height);
-        image.sizeDelta = screenSize;
+        //image.sizeDelta = screenSize;
     }
 
     void StartGame()
