@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,10 +8,10 @@ public class BonusController : MonoBehaviour
 
     void Start()
     {
-        // »ñÈ¡ AudioSource ×é¼ş
+        // è·å– AudioSource ç»„ä»¶
         audioSource = GetComponent<AudioSource>();
 
-        // È·±£ AudioSource ´æÔÚ²¢ÇÒÓĞÒôÆµÎÄ¼ş
+        // ç¡®ä¿ AudioSource å­˜åœ¨å¹¶ä¸”æœ‰éŸ³é¢‘æ–‡ä»¶
         if (audioSource == null || audioSource.clip == null)
         {
             Debug.LogError("AudioSource or AudioClip not set.");
@@ -22,26 +22,31 @@ public class BonusController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // ´¥·¢ÉùÒô²¥·Å
+            string objectName = this.gameObject.name;
+            string objectNumber = gameObject.name.Replace("Star-", "");
+            Debug.Log(objectNumber);
+            SoundManager.Instance.AdjustBGMVolume(int.Parse(objectNumber), 1.0f);
+
+            // è§¦å‘å£°éŸ³æ’­æ”¾
             PlayAndDestroy();
         }
     }
 
     void PlayAndDestroy()
     {
-        // ²¥·ÅÒôÆµ
+        // æ’­æ”¾éŸ³é¢‘
         audioSource.Play();
-        // ½ûÓÃÅö×²Æ÷£¬·ÀÖ¹ÔÙ´Î´¥·¢
+        // ç¦ç”¨ç¢°æ’å™¨ï¼Œé˜²æ­¢å†æ¬¡è§¦å‘
         GetComponent<Collider2D>().enabled = false;
-        // Æô¶¯Ğ­³Ì£¬ÔÚÒôÆµ²¥·ÅÍê±ÏºóÏú»ÙÎïÌå
+        // å¯åŠ¨åç¨‹ï¼Œåœ¨éŸ³é¢‘æ’­æ”¾å®Œæ¯•åé”€æ¯ç‰©ä½“
         StartCoroutine(DestroyAfterSound());
     }
 
     IEnumerator DestroyAfterSound()
     {
-        // µÈ´ıÒôÆµ²¥·ÅÍê±Ï
+        // ç­‰å¾…éŸ³é¢‘æ’­æ”¾å®Œæ¯•
         yield return new WaitForSeconds(audioSource.clip.length);
-        // Ïú»ÙÎïÌå
+        // é”€æ¯ç‰©ä½“
         Destroy(gameObject);
     }
 }

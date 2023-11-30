@@ -6,7 +6,8 @@ public class Timing : MonoBehaviour
 {
     [SerializeField] private GameObject soundManager;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject[] bgmPositions = new GameObject[6];
+    [SerializeField] private GameObject[] bgmPositions = new GameObject[7];
+    //[SerializeField] private GameObject[] stars = new GameObject[6];
 
     [Space(20)]
     [SerializeField] private float timeCounter;
@@ -47,7 +48,7 @@ public class Timing : MonoBehaviour
         endPointPosition = endPoint.transform.localPosition;
         distance = Vector2.Distance(startPoint.transform.position, endPoint.transform.position);
 
-        SoundManager.Instance.PlayBGM(0, 1.0f);
+        SoundManager.Instance.PlayBGM(0, 0.0f);
         SoundManager.Instance.PlayBGM(1, 0.0f);
         SoundManager.Instance.PlayBGM(2, 0.0f);
         SoundManager.Instance.PlayBGM(3, 0.0f);
@@ -74,13 +75,13 @@ public class Timing : MonoBehaviour
             lastLoopTime = loopTime;
         }
 
-        for (int i = 0; i < bgmPositions.Length; i++)
-        {
-            if (player.transform.position.x >= bgmPositions[i].transform.position.x)
-            {
-                SoundManager.Instance.AdjustBGMVolume(i + 1, 1.0f);
-            }
-        }
+        //for (int i = 0; i < bgmPositions.Length; i++)
+        //{
+        //    if (player.transform.position.x >= bgmPositions[i].transform.position.x)
+        //    {
+        //        SoundManager.Instance.AdjustBGMVolume(i + 1, 1.0f);
+        //    }
+        //}
 
         CheckBGMTime();
         BeatCheck();
