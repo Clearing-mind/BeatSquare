@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-        animator.SetFloat("speed", Mathf.Abs(rb.velocity.x));
+        //animator.SetFloat("speed", Mathf.Abs(rb.velocity.x));
 
         // liye
         // Jump
@@ -342,7 +343,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Respawn()
     {
-        this.transform.position = initialPosition;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //this.transform.position = initialPosition;
     }
 
 }

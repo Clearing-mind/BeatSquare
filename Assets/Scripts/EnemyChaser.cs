@@ -4,32 +4,18 @@ using UnityEngine;
 
 public class EnemyChaser : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Animator animator;
     [SerializeField] private GameObject player;
-    [SerializeField] private float height;
     [SerializeField] private float timeLimit;
     [SerializeField] private float countUp;
     [SerializeField] private float speed;
     [SerializeField] private float distance;
     [SerializeField] private Vector2 direction;
     [SerializeField] private Vector2 initialScale;
-    private bool isActive = false;
-    public void Activate()
-    {
-        isActive = true;
-        rb = GetComponent<Rigidbody2D>(); // 添加这行以获取 Rigidbody2D 组件
-        rb.simulated = true; // 启用 Rigidbody2D
-        this.enabled = true;
-    }
-
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        animator = this.GetComponent<Animator>();
-    height = player.transform.position.y;
-    initialScale = this.transform.localScale;
+        initialScale = this.transform.localScale;
     }
 
     void Update()
@@ -43,7 +29,7 @@ public class EnemyChaser : MonoBehaviour
         if (countUp >= timeLimit)
         {
             countUp = timeLimit;
-            speed = player.GetComponent<PlayerMovement>().speed;
+            //speed = player.GetComponent<PlayerMovement>().speed;
         }
         else
         {
@@ -61,15 +47,9 @@ public class EnemyChaser : MonoBehaviour
             this.transform.localScale = new Vector3(-initialScale.x, initialScale.y, 1.0f);
         }
 
-        this.transform.position = new Vector2(this.transform.position.x, height);
-
         if(this.GetComponent<EnemyController>().takingDamage == false)
         {
             this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
-        }
-        {
-            if (!isActive) return; // 如果未激活，直接返回
-
         }
 
     }

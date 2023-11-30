@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 264889897643097444}
   - component: {fileID: 6458391291019742302}
   - component: {fileID: 3057043810951935250}
+  - component: {fileID: 869855502}
   m_Layer: 0
   m_Name: Event
   m_TagString: Untagged
@@ -25,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383416146734043737}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6458391291019742302
 MonoBehaviour:
@@ -45,9 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc946bbb9ad1a3f45abfb6e0873a14fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
   player: {fileID: 0}
-  enemy: {fileID: 4298334805156330339, guid: b840991936d4aca44a0a591062cfc9ca, type: 3}
+  initialScale: {x: 0, y: 0, z: 0}
+  scaleSmaller: 1
+  scaleBigger: 1.5
 --- !u!114 &3057043810951935250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,13 +63,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundManager: {fileID: 0}
+  player: {fileID: 0}
+  bgmPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   timeCounter: 0
   bgmLength: 0
   bgmTime: 0
+  lastLoopTime: 0
+  loopTime: 0
+  loopAgain: 0
   bpm: 60
   secondPerBeat: 0
-  beatRange: 0.2
+  beatRange: 0.3
   beatTimer: 0
+  beatDelay: 0.5
   onBeat: 0
   startPoint: {fileID: 0}
   endPoint: {fileID: 0}
@@ -75,3 +89,23 @@ MonoBehaviour:
   distance: 0
   startPointPosition: {x: 0, y: 0}
   endPointPosition: {x: 0, y: 0}
+--- !u!114 &869855502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383416146734043737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d7604d3f078b84489163d78716be03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  enemy: {fileID: 2363479906112906514, guid: 9e7e8d936e4b71243b9ad1279de30030, type: 3}
+  offsetX: 20
+  randomY: 0
+  enemyPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

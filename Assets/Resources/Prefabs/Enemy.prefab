@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7081997233954336164}
   - component: {fileID: 1156321535143328233}
   - component: {fileID: 7801907367451703755}
-  - component: {fileID: 7433464991189041531}
   - component: {fileID: 4156085734412107627}
   - component: {fileID: 4608173432132235278}
   - component: {fileID: 1680435912310830825}
@@ -29,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2363479906112906514}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.38, y: -4.23, z: 0}
-  m_LocalScale: {x: -6.326, y: 6.326, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: -9.85, y: 9.85, z: 0}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1156321535143328233
 SpriteRenderer:
@@ -110,33 +109,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!50 &7433464991189041531
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2363479906112906514}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 1
-  m_SleepingMode: 0
-  m_CollisionDetection: 1
-  m_Constraints: 4
 --- !u!61 &4156085734412107627
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,26 +118,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2363479906112906514}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 61956045335a2384f85f1ea3f427a73b, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -194,11 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a558ff32e387074780a986eee559f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 7433464991189041531}
-  animator: {fileID: 7801907367451703755}
   player: {fileID: 0}
-  height: 0
-  timeLimit: 0
+  timeLimit: 3
   countUp: 0
   speed: 0
   distance: 0

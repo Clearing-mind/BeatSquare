@@ -1,58 +1,53 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ElevatorController : MonoBehaviour
 {
-
-    private Animator Elevator;
+    public GameObject player;
+    public Transform[] points;
+    public float speed;
+    public int startingPoint;
     private bool hasCollided = false;
+    private int i;
+    public Vector2 initialPosition;
 
-    private void Start()
+    void Start()
     {
-
-        // 获取动画组件
-        Elevator = GetComponent<Animator>();
+        initialPosition = this.transform.position;
     }
 
-
-    private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
-    {
-        collision.transform.SetParent(transform);
-        if (collision.gameObject.CompareTag("Player") && !hasCollided)// 检测到与角色的碰撞
-        {
-
-
-
-            StartCoroutine(PlayAnimationWithDelay(2f)); // 启动协程延迟两秒后播放动画
-            hasCollided = true;
-        
-        }
-
-    }
-    private void OnCollisionExit2D(UnityEngine.Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Player"))
-        {
-            collision.transform.SetParent(null);
-        }
-    }
-
-    private IEnumerator PlayAnimationWithDelay(float delay)
-    {
-
-        yield return new WaitForSeconds(delay);// 等待指定的延迟时间
-        Elevator.SetTrigger("ElevatorTrigger");
-        Elevator.Play("Elevator-Animation", 0, 0f);
-
-
-    }
     void Update()
     {
+        if (hasCollided == true)
+        {
+            if (Vector2.Distance(this.transform.position, points[i].position) < 0.02f)
+            {
+                i++;
+                if (i == points.Length)
+                {
+                    i = points.Length - 1;
+                }
+            }
+            this.transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
+        }
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag== "Player"  && i != points.Length - 1)
+        {
+            StartCoroutine(DelayedStart(2.0f)); // ����Э���ӳ�����
+            //collision.transform.SetParent(this.transform);
+        }
     }
 
 
+private IEnumerator DelayedStart(float delay)
+{
+    yield return new WaitForSeconds(delay);
+    hasCollided = true; // �����ƶ�
+}
 
 
 
