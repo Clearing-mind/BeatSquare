@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 344108660}
     - target: {fileID: 3057043810951935250, guid: a21063c6484cad24c995a5efef6a6f3e, type: 3}
       propertyPath: beatDelay
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3057043810951935250, guid: a21063c6484cad24c995a5efef6a6f3e, type: 3}
       propertyPath: beatRange

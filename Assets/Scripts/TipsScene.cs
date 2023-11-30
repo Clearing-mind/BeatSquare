@@ -4,18 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ExplanationScene : MonoBehaviour
+public class TipsScene : MonoBehaviour
 {
-    public GameObject back;
-
     void Start()
     {
-        back.GetComponent<Button>().onClick.AddListener(BackToStartScene);
+        Invoke("StartScene", 5);
     }
 
-    void BackToStartScene()
+    void StartScene()
     {
         SceneManager.LoadScene("Start");
     }
-
 }
