@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class TapDetector : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject enemy;
 
     [SerializeField] private Vector3 initialScale;
     [SerializeField] private float scaleSmaller;
@@ -14,7 +12,6 @@ public class TapDetector : MonoBehaviour
 
     void Start()
     {
-        animator = player.GetComponent<Animator>();
         initialScale = player.transform.localScale;
     }
     void Update()
