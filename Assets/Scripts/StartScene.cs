@@ -12,11 +12,20 @@ public class StartScene : MonoBehaviour
     public GameObject howToPlay;
     public GameObject exit;
 
+    public RectTransform image;
+    public Vector2 screenSize;
+
     void Start()
     {
         start.GetComponent<Button>().onClick.AddListener(StartGame);
         exit.GetComponent<Button>().onClick.AddListener(EndGame);
         howToPlay.GetComponent<Button>().onClick.AddListener(ExplanationScene);
+    }
+
+    void Update()
+    {
+        screenSize = new Vector2(Screen.width, Screen.height);
+        image.sizeDelta = screenSize;
     }
 
     void StartGame()
