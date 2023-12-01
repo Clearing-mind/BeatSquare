@@ -70,7 +70,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  overPosition: {fileID: 0}
   timeCounter: 0
   bgmLength: 0
   bgmTime: 0
@@ -81,7 +80,7 @@ MonoBehaviour:
   secondPerBeat: 0
   beatRange: 0.3
   beatTimer: 0
-  beatDelay: 0.5
+  beatDelay: 1.1
   onBeat: 0
   startPoint: {fileID: 0}
   endPoint: {fileID: 0}
@@ -96,7 +95,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383416146734043737}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5d7604d3f078b84489163d78716be03, type: 3}
   m_Name: 

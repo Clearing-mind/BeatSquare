@@ -16,6 +16,7 @@ public class Timing : MonoBehaviour
     [SerializeField] private int lastLoopTime;
     [SerializeField] private int loopTime;
     [SerializeField] private bool loopAgain;
+    [SerializeField] public bool startPlay;
 
     [Space(20)]
     [SerializeField] private float bpm;
@@ -39,7 +40,7 @@ public class Timing : MonoBehaviour
         secondPerBeat = 60.0f / bpm;
         //beatRange = 0.2f;
         //beatDelay = secondPerBeat / 2.0f;
-        beatTimer = beatDelay;
+        //beatTimer = beatDelay;
 
         lastLoopTime = 0;
         loopTime = 0;
@@ -48,18 +49,24 @@ public class Timing : MonoBehaviour
         endPointPosition = endPoint.transform.localPosition;
         distance = Vector2.Distance(startPoint.transform.position, endPoint.transform.position);
 
-        SoundManager.Instance.PlayBGM(0, 1.0f);
-        SoundManager.Instance.PlayBGM(1, 0.0f);
-        SoundManager.Instance.PlayBGM(2, 0.0f);
-        SoundManager.Instance.PlayBGM(3, 0.0f);
-        SoundManager.Instance.PlayBGM(4, 0.0f);
-        SoundManager.Instance.PlayBGM(5, 0.0f);
-        SoundManager.Instance.PlayBGM(6, 0.0f);
-        //SoundManager.Instance.PlayBGM(7, 0.0f);
+
     }
 
     void Update()
     {
+        if (startPlay == true)
+        {
+            SoundManager.Instance.PlayBGM(0, 0.0f);
+            SoundManager.Instance.PlayBGM(1, 0.0f);
+            SoundManager.Instance.PlayBGM(2, 0.0f);
+            SoundManager.Instance.PlayBGM(3, 0.0f);
+            SoundManager.Instance.PlayBGM(4, 0.0f);
+            SoundManager.Instance.PlayBGM(5, 0.0f);
+            SoundManager.Instance.PlayBGM(6, 0.0f);
+            //SoundManager.Instance.PlayBGM(7, 0.0f);
+            startPlay = false;
+        }
+
         timeCounter += Time.deltaTime;
         loopTime = (int)(timeCounter / bgmLength);
 
