@@ -20,7 +20,7 @@ public class ScaleChecker : MonoBehaviour
 
         if (playerScale != lastPlayerScale)
         {
-            ResetScalesColor(); 
+            ResetScalesColor();
             scales[playerScale - 6].GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
             lastPlayerScale = playerScale;
         }

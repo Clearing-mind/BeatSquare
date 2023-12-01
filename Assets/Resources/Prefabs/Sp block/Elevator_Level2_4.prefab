@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5452125443644311395}
   - component: {fileID: 8348263434394750185}
   - component: {fileID: 4454245401415911904}
-  - component: {fileID: 4320925615867483011}
+  - component: {fileID: 1605510167}
   m_Layer: 6
   m_Name: Elevator_Level2_4
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4882201911363229007}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 76.5, y: 3.5, z: 0}
   m_LocalScale: {x: 3, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -417,7 +417,7 @@ CompositeCollider2D:
       - {x: -1.4999707, y: -0.02}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
---- !u!114 &4320925615867483011
+--- !u!114 &1605510167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -426,11 +426,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4882201911363229007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea21aa108054b7b40a1885ca9ac62b15, type: 3}
+  m_Script: {fileID: 11500000, guid: af2c3d45a20f44f45be8131a6fe64ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  startingPoint: 0
-  points:
-  - {fileID: 0}
-  - {fileID: 0}
+  player: {fileID: 0}
+  endPoint: {fileID: 0}
+  speed: 0
+  initialPosition: {x: 0, y: 0}

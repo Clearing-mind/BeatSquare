@@ -1,4 +1,4 @@
-using System.Collections;
+锘縰sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +36,7 @@ public class ElevatorController : MonoBehaviour
     //{
     //    if (collision.gameObject.tag== "Player"  && i != points.Length - 1)
     //    {
-    //        StartCoroutine(DelayedStart(2.0f)); // 启动协程延迟两秒
+    //        StartCoroutine(DelayedStart(2.0f)); // 鍚姩鍗忕▼寤惰繜涓ょ
     //        //collision.transform.SetParent(this.transform);
     //    }
     //}
@@ -58,7 +58,7 @@ public class ElevatorController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            StartCoroutine(DelayedStart(2.0f)); // 启动协程延迟两秒
+            StartCoroutine(DelayedStart(2.0f)); // 鍚姩鍗忕▼寤惰繜涓ょ
             //collision.transform.SetParent(this.transform);
         }
     }
@@ -67,7 +67,7 @@ public class ElevatorController : MonoBehaviour
     private IEnumerator DelayedStart(float delay)
     {
         yield return new WaitForSeconds(delay);
-        hasCollided = true; // 启用移动
+        hasCollided = true; // 鍚敤绉诲姩
     }
 
 
