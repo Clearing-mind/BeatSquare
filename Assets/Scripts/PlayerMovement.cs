@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Space(20)]
     [SerializeField] private bool isWallSliding;
-    [SerializeField] private float wallSlidingSpeed = 1.0f; // must more than 2.0f
+    [SerializeField] private float wallSlidingSpeed;
 
     [Space(20)]
     [SerializeField] private bool isWallJumping;
@@ -48,8 +48,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Collider2D[] hitEnemies;
 
     // liye
+    [Space(20)]
     [SerializeField] private bool canMoveVertically;
-    private float originalSpeed = 16.0f;
+    [SerializeField] private float initialSpeed;
+    // 在类的顶部定义一个变量来存储当前的速度倍率
+    [SerializeField] private float speedMultiplier;
+    [SerializeField] private bool hasAppliedMultiplier;
 
     // liye
     public void DisableVerticalMovement()
@@ -67,9 +71,11 @@ public class PlayerMovement : MonoBehaviour
     {
         isFacingRight = true;
         animator = this.GetComponent<Animator>();
-        originalSpeed = speed;
+        initialSpeed = speed;
         initialPosition = this.transform.position;
         initialScale = this.transform.localScale;
+        speedMultiplier = 1.0f;
+        hasAppliedMultiplier = false;
     }
 
     void Update()
@@ -89,7 +95,8 @@ public class PlayerMovement : MonoBehaviour
         // Jump
         if (canMoveVertically == true)
         {
-            speed = originalSpeed * currentSpeedMultiplier;
+            speed = initialSpeed * speedMultiplier;
+
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
                 rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
@@ -171,25 +178,23 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
     // liye
-    // 在类的顶部定义一个变量来存储当前的速度倍率
-    private float currentSpeedMultiplier = 1.0f;
-    private bool hasAppliedMultiplier = false;
     //这里设置了加速物品的放大倍率，链接到了物体脚本上，方便今后直接调整物体脚本而不动用角色脚本
+
     public void SetSpeedMultiplier(float multiplier, float delay)
     {
         // 只在初次设置时进行乘法操作
         if (!hasAppliedMultiplier)
         {
             // 在这里修改速度
-            if (horizontal > 0f)
-            {
-                speed = speed * multiplier;
-                // 记录当前速度倍率
-                currentSpeedMultiplier = multiplier;
-                Invoke(nameof(ResetSpeed), delay);
-                hasAppliedMultiplier = true; // 将标志设置为 true，表示已经应用了速度倍率
-            }
+
+            speed = speed * multiplier;
+            // 记录当前速度倍率
+            speedMultiplier = multiplier;
+            Invoke("ResetSpeed", delay);
+            hasAppliedMultiplier = true; // 将标志设置为 true，表示已经应用了速度倍率
+
         }
     }
 
@@ -197,7 +202,10 @@ public class PlayerMovement : MonoBehaviour
     void ResetSpeed()
     {
         // 还原速度为初始值或者之前的倍率
-        speed = originalSpeed * currentSpeedMultiplier;
+        //speed = originalSpeed * currentSpeedMultiplier;
+        Debug.Log("1");
+        speed = initialSpeed;
+        speedMultiplier = 1.0f; // must return to the initial value
         hasAppliedMultiplier = false; // 将标志重置为 false，以便在下一次调用 SetSpeedMultiplier 时可以再次应用倍率
     }
     //liye
@@ -282,8 +290,7 @@ public class PlayerMovement : MonoBehaviour
         if (IsWalled() && !IsGrounded() && horizontal != 0f)
         {
             isWallSliding = true;
-            //rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
-            rb.velocity = new Vector2(rb.velocity.x, -wallSlidingSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
         else
         {

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +8,9 @@ public class haste1 : MonoBehaviour
     Vector2 trans2;
     public float zhenFu = 1f;
     public float HZ = 1f;
-    public float speedMultiplier = 2f; // ¼ÓËÙ±¶Êı
-    public float delayBeforeReset = 1f; // ÖØÖÃËÙ¶ÈµÄÑÓ³ÙÊ±¼ä
-    public float scaleMultiplier = 1.5f; // Ëõ·Å±¶Êı
+    public float speedMultiplier = 2f; // åŠ é€Ÿå€æ•°
+    public float delayBeforeReset = 1f; // é‡ç½®é€Ÿåº¦çš„å»¶è¿Ÿæ—¶é—´
+    public float scaleMultiplier = 1.5f; // ç¼©æ”¾å€æ•°
     private void Awake()
     {
         trans1 = transform.position;
@@ -25,25 +25,25 @@ public class haste1 : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        // ¼ì²âÓë Player µÄÅö×²
+        // æ£€æµ‹ä¸ Player çš„ç¢°æ’
         if (other.CompareTag("Player"))
         {
-            // »ñÈ¡ Player µÄ½Å±¾
+            // è·å– Player çš„è„šæœ¬
             PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
 
             if (playerMovement != null)
             {
-                // Ó¦ÓÃ¼ÓËÙĞ§¹û
+                // åº”ç”¨åŠ é€Ÿæ•ˆæœ
                 playerMovement.SetSpeedMultiplier(speedMultiplier, delayBeforeReset); StartCoroutine(ScaleEffect());
             }
         }
     }
     IEnumerator ScaleEffect()
     {
-        // Ëõ·ÅĞ§¹û£º·Å´ó
+        // ç¼©æ”¾æ•ˆæœï¼šæ”¾å¤§
         transform.localScale *= scaleMultiplier;
-        yield return new WaitForSeconds(0.1f); // µ÷Õû³ÖĞøÊ±¼ä£¬¿ÉÒÔ¸ù¾İĞèÒªµ÷Õû
-        // Ëõ·ÅĞ§¹û£ºËõĞ¡
+        yield return new WaitForSeconds(0.1f); // è°ƒæ•´æŒç»­æ—¶é—´ï¼Œå¯ä»¥æ ¹æ®éœ€è¦è°ƒæ•´
+        // ç¼©æ”¾æ•ˆæœï¼šç¼©å°
         transform.localScale /= scaleMultiplier;
     }
 }

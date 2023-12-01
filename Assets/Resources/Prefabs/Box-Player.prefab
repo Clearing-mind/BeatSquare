@@ -230,18 +230,21 @@ MonoBehaviour:
   speed: 12
   jumpingPower: 16
   isWallSliding: 0
-  wallSlidingSpeed: 2
+  wallSlidingSpeed: 0.05
   isWallJumping: 0
   wallJumpingDirection: 0
   wallJumpingTime: 0.2
   wallJumpingCounter: 0
   wallJumpingDuration: 0.4
-  wallJumpingPower: {x: 8, y: 16}
+  wallJumpingPower: {x: 10, y: 20}
   Event: {fileID: 0}
   VFX: {fileID: 0}
   isInAttackRange: 0
   hitEnemies: []
   canMoveVertically: 1
+  initialSpeed: 0
+  speedMultiplier: 0
+  hasAppliedMultiplier: 0
 --- !u!1 &6095106940667535670
 GameObject:
   m_ObjectHideFlags: 0
