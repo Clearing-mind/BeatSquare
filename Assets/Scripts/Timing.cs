@@ -87,6 +87,11 @@ public class Timing : MonoBehaviour
         BeatCheck();
         TempoMover(tempo_1);
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
         //for (int i = 1; i <= 6; i++)
         //{
         //    if (timeCounter >= 2.0f * i)

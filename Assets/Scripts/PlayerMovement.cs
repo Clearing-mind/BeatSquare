@@ -6,6 +6,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
     [SerializeField] private Vector2 initialPosition;
+    [SerializeField] private Vector3 initialScale;
+    [SerializeField] private float scaleInterval;
+    [SerializeField] private float scaleUpperLimit;
+    [SerializeField] private float scaleLowerLimit;
 
     [Space(20)]
     [SerializeField] private Transform groundChecker;
@@ -23,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isGrounding;
     [SerializeField] private float horizontal;
     [SerializeField] public float speed;
-    [SerializeField] private float jumpingPower;
+    [SerializeField] public float jumpingPower;
 
     [Space(20)]
     [SerializeField] private bool isWallSliding;
@@ -65,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         animator = this.GetComponent<Animator>();
         originalSpeed = speed;
         initialPosition = this.transform.position;
+        initialScale = this.transform.localScale;
     }
 
     void Update()
@@ -93,14 +98,16 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = new Vector2(rb.velocity.x, jumpingPower);// 处理垂直移动逻辑
                     SoundManager.Instance.PlaySE(SESoundData.SE.Jump_Full);
                     VFX.gameObject.SetActive(true);
+                    ScaleChangeBigger(); 
                     //animator.SetTrigger("isJump");
                     //animator.SetBool("isGrounded", false);
                 }
-                //else
-                //{
-                //    rb.velocity = new Vector2(rb.velocity.x, jumpingPower / 2.0f);
-                //    SoundManager.Instance.PlaySE(SESoundData.SE.Jump_Half);
-                //}
+                else
+                {
+                    ScaleChangeSmaller();
+                    //rb.velocity = new Vector2(rb.velocity.x, jumpingPower / 2.0f);
+                    //SoundManager.Instance.PlaySE(SESoundData.SE.Jump_Half);
+                }
             }
         }
 
@@ -248,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if(attackChecker == null)
+        if (attackChecker == null)
         {
             return;
         }
@@ -345,6 +352,37 @@ public class PlayerMovement : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //this.transform.position = initialPosition;
+    }
+
+    void ScaleChangeBigger()
+    {
+        if(Mathf.Abs(this.transform.localScale.x) < scaleUpperLimit)
+        {
+            if (this.GetComponent<PlayerMovement>().isFacingRight == true)
+            {
+                this.transform.localScale = new Vector2(this.transform.localScale.x + scaleInterval, this.transform.localScale.y + scaleInterval);
+            }
+            else
+            {
+                this.transform.localScale = new Vector2(this.transform.localScale.x - scaleInterval, this.transform.localScale.y + scaleInterval);
+            }
+        }
+    }
+
+    void ScaleChangeSmaller()
+    {
+        if (Mathf.Abs(this.transform.localScale.x) > scaleLowerLimit)
+        {
+            if (this.GetComponent<PlayerMovement>().isFacingRight == true)
+            {
+                this.transform.localScale = new Vector2(this.transform.localScale.x - scaleInterval, this.transform.localScale.y - scaleInterval);
+            }
+            else
+            {
+                this.transform.localScale = new Vector2(this.transform.localScale.x + scaleInterval, this.transform.localScale.y - scaleInterval);
+            }
+        }
+
     }
 
 }

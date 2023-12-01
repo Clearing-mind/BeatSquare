@@ -9,7 +9,8 @@ public class StartScene : MonoBehaviour
 {
 
     public GameObject start;
-    public GameObject howToPlay;
+    public GameObject controls;
+    public GameObject credits;
     public GameObject exit;
 
     public RectTransform image;
@@ -18,8 +19,9 @@ public class StartScene : MonoBehaviour
     void Start()
     {
         start.GetComponent<Button>().onClick.AddListener(StartGame);
+        controls.GetComponent<Button>().onClick.AddListener(ControlsScene);
+        credits.GetComponent<Button>().onClick.AddListener(CreditsScene);
         exit.GetComponent<Button>().onClick.AddListener(EndGame);
-        howToPlay.GetComponent<Button>().onClick.AddListener(ExplanationScene);
     }
 
     void Update()
@@ -33,9 +35,14 @@ public class StartScene : MonoBehaviour
         SceneManager.LoadScene("Level-1");
     }
 
-    void ExplanationScene()
+    void ControlsScene()
     {
-        SceneManager.LoadScene("HowToPlay");
+        SceneManager.LoadScene("Controls");
+    }
+
+    void CreditsScene()
+    {
+        SceneManager.LoadScene("Credits");
     }
 
     void EndGame()
