@@ -22,8 +22,8 @@ public class GamePause : MonoBehaviour
         {
             // 恢复游戏并隐藏文本
             Time.timeScale = 1;
-            pauseText.gameObject.SetActive(false);
             timing.GetComponent<Timing>().startPlay = true;
+            pauseText.gameObject.SetActive(false);
         }
     }
 }

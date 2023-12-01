@@ -40,7 +40,7 @@ public class Timing : MonoBehaviour
         secondPerBeat = 60.0f / bpm;
         //beatRange = 0.2f;
         //beatDelay = secondPerBeat / 2.0f;
-        //beatTimer = beatDelay;
+        beatTimer = beatDelay;
 
         lastLoopTime = 0;
         loopTime = 0;
