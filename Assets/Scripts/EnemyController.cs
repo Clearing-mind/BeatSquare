@@ -29,6 +29,7 @@ public class EnemyController : MonoBehaviour
     {
         //Debug.Log("Enemy Died !!!");
         takingDamage = true;
+        this.GetComponent<BoxCollider2D>().enabled = false;
         animator.SetTrigger("TakenDamage");
         Invoke("SetActiveFalse", 1.0f);
     }

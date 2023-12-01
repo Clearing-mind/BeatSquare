@@ -24,7 +24,7 @@ public class BonusController : MonoBehaviour
         {
             string objectName = this.gameObject.name;
             string objectNumber = gameObject.name.Replace("Star-", "");
-            Debug.Log(objectNumber);
+            //Debug.Log(objectNumber);
             SoundManager.Instance.AdjustBGMVolume(int.Parse(objectNumber), 1.0f);
 
             // 触发声音播放
