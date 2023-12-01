@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorGradient : MonoBehaviour
+public class ColorGradiant : MonoBehaviour
 {
     public float colorChangeDuration = 2f;
     public float recoveryDuration = 1f;
@@ -18,7 +18,17 @@ public class ColorGradient : MonoBehaviour
 
     void Start()
     {
-        originalColor = GetComponent<Renderer>().material.color;
+        Renderer Renderer = GetComponent<Renderer>();
+
+        if (Renderer != null && Renderer.material != null)
+        {
+            originalColor = Renderer.material.color;
+            // 其他的 Start 方法代码...
+        }
+        else
+        {
+            Debug.LogError("Renderer or material not found on the game object.");
+        }
         // 启动时开始颜色渐变
         InvokeRepeating(nameof(ChangeColorGradually), 0f, 0.1f); // 每隔0.1秒执行一次以实现更平滑的渐变
     }
