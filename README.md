@@ -4,7 +4,6 @@ Get ready for an electrifying gaming experience with "Beat Square"! In this game
 Created for Game Off 2023 with the theme SCALE. 
 
 SCALE used:
-
 to climb up something steep, such as a wall, building, or mountain.
 to change the size of something e.g. make something smaller (scale down) or increase the size, amount, or importance of something (scale up).
 
