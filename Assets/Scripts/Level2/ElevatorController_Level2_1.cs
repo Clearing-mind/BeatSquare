@@ -20,7 +20,7 @@ public class ElevatorController_Level2_1 : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player"); // 使用标签查找角色对象
 
-        //if (player != null && player.transform.position.x >= 520)
+        /*if (player != null && player.transform.position.x >= 520)
         {
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
 
@@ -29,6 +29,7 @@ public class ElevatorController_Level2_1 : MonoBehaviour
                 //playerMovement.EnableVerticalMovement();
             }
         }
+        */
         if (hasCollided)
         {
             if (Vector2.Distance(transform.position, points[i].position) < 0.02f)
@@ -51,7 +52,7 @@ public class ElevatorController_Level2_1 : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")  && i != points.Length - 1)
         {
-            StartCoroutine(DelayedStart(0.5f)); // 启动协程延迟两秒
+            StartCoroutine(DelayedStart(1.5f)); // 启动协程延迟两秒
             collision.transform.SetParent(transform);
 
             PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();// 获取角色的脚本
