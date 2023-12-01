@@ -48,7 +48,7 @@ public class Timing : MonoBehaviour
         endPointPosition = endPoint.transform.localPosition;
         distance = Vector2.Distance(startPoint.transform.position, endPoint.transform.position);
 
-        SoundManager.Instance.PlayBGM(0, 0.0f);
+        SoundManager.Instance.PlayBGM(0, 1.0f);
         SoundManager.Instance.PlayBGM(1, 0.0f);
         SoundManager.Instance.PlayBGM(2, 0.0f);
         SoundManager.Instance.PlayBGM(3, 0.0f);

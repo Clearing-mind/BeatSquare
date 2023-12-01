@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Space(20)]
     [SerializeField] private bool isWallSliding;
-    [SerializeField] private float wallSlidingSpeed = 2.0f; // must more than 2.0f
+    [SerializeField] private float wallSlidingSpeed = 1.0f; // must more than 2.0f
 
     [Space(20)]
     [SerializeField] private bool isWallJumping;
