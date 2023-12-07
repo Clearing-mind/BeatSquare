@@ -26,6 +26,7 @@ public class BonusController : MonoBehaviour
             string objectNumber = gameObject.name.Replace("Star-", "");
             //Debug.Log(objectNumber);
             SoundManager.Instance.AdjustBGMVolume(int.Parse(objectNumber), 1.0f);
+            other.GetComponent<PlayerMovement>().respawnPosition = this.transform.position;
 
             // 触发声音播放
             PlayAndDestroy();

@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float scaleInterval;
     [SerializeField] private float scaleUpperLimit;
     [SerializeField] private float scaleLowerLimit;
+    [SerializeField] public Vector3 respawnPosition;
 
     [Space(20)]
     [SerializeField] private Transform groundChecker;
@@ -73,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         animator = this.GetComponent<Animator>();
         initialSpeed = speed;
         initialPosition = this.transform.position;
+        respawnPosition = initialPosition;
         initialScale = this.transform.localScale;
         speedMultiplier = 1.0f;
         hasAppliedMultiplier = false;
@@ -82,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         // Left and right movement
-        if (isWallJumping == false)
+        if (isWallJumping == false && Event.GetComponent<Timing>().onPlay == true)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
             //Debug.Log(horizontal);
@@ -97,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         {
             speed = initialSpeed * speedMultiplier;
 
-            if (Input.GetButtonDown("Jump") && IsGrounded())
+            if (Input.GetButtonDown("Jump") && IsGrounded() && Event.GetComponent<Timing>().onPlay == true)
             {
                 rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
                 if (Event.GetComponent<Timing>().onBeat == true)
@@ -122,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         if (canMoveVertically == false)
         {
             speed = 0.0f;
-            if (Input.GetButtonDown("Jump") && IsGrounded())
+            if (Input.GetButtonDown("Jump") && IsGrounded() && Event.GetComponent<Timing>().onPlay == true)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);// 处理垂直移动逻辑
             }
@@ -167,12 +169,12 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isWallSlide", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Event.GetComponent<Timing>().onPlay == true)
         {
             Attack1();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && Event.GetComponent<Timing>().onPlay == true)
         {
             Attack3();
         }
@@ -351,14 +353,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Spike")
         {
-            this.GetComponent<PlayerMovement>().Respawn();
+            Respawn();
         }
     }
 
     public void Respawn()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //this.transform.position = initialPosition;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        this.transform.position = respawnPosition;
     }
 
     void ScaleChangeBigger()

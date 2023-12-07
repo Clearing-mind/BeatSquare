@@ -20,6 +20,7 @@ public class TextFlick : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
+
         if (isAddAlpha)
         {
             t.color += new Color(0, 0, 0, Time.deltaTime * blinkSpeed);

@@ -19,7 +19,7 @@ public class EnemyAppear : MonoBehaviour
     {
         randomY = UnityEngine.Random.Range(player.transform.position.y, player.transform.position.y + 10.0f);
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && this.GetComponent<Timing>().onPlay == true)
         {
             Instantiate(enemy, new Vector3(player.transform.position.x + offsetX, randomY, 0.0f), Quaternion.identity);
         }

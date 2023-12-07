@@ -10,13 +10,16 @@ public class Timing : MonoBehaviour
     //[SerializeField] private GameObject[] stars = new GameObject[6];
 
     [Space(20)]
+    [SerializeField] public bool onPlay;
+    [SerializeField] public bool bgmPlay;
+
+    [Space(20)]
     [SerializeField] private float timeCounter;
     [SerializeField] private float bgmLength;
     [SerializeField] private float bgmTime;
     [SerializeField] private int lastLoopTime;
     [SerializeField] private int loopTime;
     [SerializeField] private bool loopAgain;
-    [SerializeField] public bool startPlay;
 
     [Space(20)]
     [SerializeField] private float bpm;
@@ -49,12 +52,11 @@ public class Timing : MonoBehaviour
         endPointPosition = endPoint.transform.localPosition;
         distance = Vector2.Distance(startPoint.transform.position, endPoint.transform.position);
 
-
     }
 
     void Update()
     {
-        if (startPlay == true)
+        if (onPlay == true && bgmPlay == true)
         {
             SoundManager.Instance.PlayBGM(0, 0.0f);
             SoundManager.Instance.PlayBGM(1, 0.0f);
@@ -64,7 +66,7 @@ public class Timing : MonoBehaviour
             SoundManager.Instance.PlayBGM(5, 0.0f);
             SoundManager.Instance.PlayBGM(6, 0.0f);
             //SoundManager.Instance.PlayBGM(7, 0.0f);
-            startPlay = false;
+            bgmPlay = false;
         }
 
         timeCounter += Time.deltaTime;
@@ -99,6 +101,11 @@ public class Timing : MonoBehaviour
             Application.Quit();
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            beatRange = 1.0f;
+        }
+
         //for (int i = 1; i <= 6; i++)
         //{
         //    if (timeCounter >= 2.0f * i)
@@ -118,7 +125,7 @@ public class Timing : MonoBehaviour
         //    //print("ÖØÖÃ");
         //}
 
-        if ((beatTimer > secondPerBeat - beatRange) || (beatTimer < beatRange/2.0f))
+        if ((beatTimer > secondPerBeat - beatRange) || (beatTimer < beatRange))
         {
             onBeat = true;
         }

@@ -6,7 +6,6 @@ using TMPro;
 public class GamePause : MonoBehaviour
 {
     public TextMeshProUGUI pauseText; // 指定UI文本元素
-    public GameObject timing;
 
     private void Awake()
     {
@@ -22,7 +21,8 @@ public class GamePause : MonoBehaviour
         {
             // 恢复游戏并隐藏文本
             Time.timeScale = 1;
-            timing.GetComponent<Timing>().startPlay = true;
+            this.GetComponent<Timing>().onPlay = true;
+            this.GetComponent<Timing>().bgmPlay = true;
             pauseText.gameObject.SetActive(false);
         }
     }
