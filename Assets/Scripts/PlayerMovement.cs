@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float wallJumpingTime = 0.2f;
     [SerializeField] private float wallJumpingCounter;
     [SerializeField] private float wallJumpingDuration = 0.4f;
-    [SerializeField] private Vector2 wallJumpingPower = new Vector2(8f, 16f);
+    [SerializeField] private Vector2 wallJumpingPower = new(6f, 16f);
 
     [Space(20)]
     [SerializeField] private GameObject Event;
@@ -82,7 +82,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
         // Left and right movement
         if (isWallJumping == false && Event.GetComponent<Timing>().onPlay == true)
         {
@@ -90,8 +89,17 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log(horizontal);
         }
 
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-        //animator.SetFloat("speed", Mathf.Abs(rb.velocity.x));
+        if (isWallJumping)
+        {
+            if (horizontal * rb.velocity.x < 0)
+            {
+                //offer a oppsite acceleration while wall jumping
+                rb.velocity = new Vector2(rb.velocity.x + horizontal * 0.6f, rb.velocity.y);
+            }
+        }
+        else
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        //Debug.LogError(rb.velocity.x);        //animator.SetFloat("speed", Mathf.Abs(rb.velocity.x));
 
         // liye
         // Jump
@@ -178,7 +186,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Attack3();
         }
-
     }
 
     // liye
