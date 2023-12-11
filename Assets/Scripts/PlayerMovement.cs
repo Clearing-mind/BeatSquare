@@ -13,6 +13,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public Vector3 respawnPosition;
 
     [Space(20)]
+    [SerializeField] public GameObject elevator;
+    [SerializeField] public Vector3 elevatorInitialPosition;
+
+    [Space(20)]
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float goundedRange = 0.2f;
@@ -40,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float wallJumpingTime = 0.2f;
     [SerializeField] private float wallJumpingCounter;
     [SerializeField] private float wallJumpingDuration = 0.4f;
-    [SerializeField] private Vector2 wallJumpingPower = new(6f, 16f);
+    [SerializeField] private Vector2 wallJumpingPower;
 
     [Space(20)]
     [SerializeField] private GameObject Event;
@@ -74,8 +78,9 @@ public class PlayerMovement : MonoBehaviour
         animator = this.GetComponent<Animator>();
         initialSpeed = speed;
         initialPosition = this.transform.position;
-        respawnPosition = initialPosition;
         initialScale = this.transform.localScale;
+        respawnPosition = initialPosition;
+        elevatorInitialPosition = elevator.transform.position;
         speedMultiplier = 1.0f;
         hasAppliedMultiplier = false;
     }
@@ -368,6 +373,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         this.transform.position = respawnPosition;
+        elevator.transform.position = elevatorInitialPosition;
     }
 
     void ScaleChangeBigger()
